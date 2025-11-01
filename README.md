@@ -21,7 +21,7 @@
 
 ## 🎯 Vision
 
-The primary vision of the VTS is to empower employees and streamline internal HR processes.
+The main goal of this application is to improve the internal business processes of this organization, at least with respect to the time it takes to manage vacation time requests. The primary vision of the VTS is to empower employees and streamline internal HR processes.
 
 > A Vacation Tracking System (VTS) will provide individual employees with the capability to manage their own vacation time, sick leave, and personal time off, without having to be an expert in company policy or the local facility’s leave policies.
 
@@ -30,9 +30,8 @@ The primary vision of the VTS is to empower employees and streamline internal HR
 *   **HR Efficiency:** Streamline the functions of the Human Resources (HR) department by automating leave tracking and approval workflows.
 *   **Managerial Focus:** Minimize the time managers spend on non-core, administrative tasks.
 
----
-
-## ⚙️ Functional Requirements
+  ___________________________________-
+  ## ⚙️ Functional Requirements
 
 These are the specific functions the system must perform.
 

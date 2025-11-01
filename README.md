@@ -1,72 +1,111 @@
-Vacation Tracking System (VTS) - System Overview
-This document provides a comprehensive overview of the Vacation Tracking System as described in the provided architectural text.
+# 🌴 Vacation Tracking System (VTS)
 
-1. System Details
-Vision
-The core vision for the Vacation Tracking System (VTS) is to empower employees and streamline HR processes. The official vision statement is:
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen) ![License](https://img.shields.io/badge/license-MIT-blue) ![Version](https://img.shields.io/badge/version-1.0.0-informational)
 
-A Vacation Tracking System (VTS) will provide individual employees with the capability to manage their own vacation time, sick leave, and personal time off, without having to be an expert in company policy or the local facility’s leave policies.
+A modern, web-based application designed to streamline and automate the process of requesting, tracking, and managing employee leave.
 
-The primary goals derived from this vision are:
+---
 
-Give employees the capability and responsibility to manage their own leave.
-Streamline the functions of the Human Resources (HR) department.
-Minimize non-core, business-related activities for managers.
-Empower employees.
-Functional Requirements
-These are the specific functions the system must perform, derived from the "key features" and use case descriptions.
+## 📋 Table of Contents
 
-Leave Management:
-Employees can create, view, and cancel their own vacation time requests.
-Employees can withdraw a pending request before it is approved/denied.
-Employees can edit the title or description of a pending request.
-Approval Workflow:
-The system must support an optional manager approval process for leave requests.
-Managers can approve or deny leave requests from their subordinates.
-Managers can award personal leave time (comp time) to subordinates, within system-set limits.
-Rules Engine:
-Must implement a flexible, rules-based system for validating and verifying leave time requests.
-Rules should be manageable by HR personnel, not just developers.
-Validation must account for company-wide policies and location-specific rules.
-Data and History:
-The system must provide access to requests from the previous calendar year.
-The system must allow requests to be made up to 1.5 years in the future.
-Notifications:
-The system must use e-mail to notify managers of new requests needing approval.
-The system must use e-mail to notify employees of any change in their request's status (e.g., approved, rejected, canceled).
-Administration and Overrides:
-HR and System Administration personnel must be able to override all actions restricted by the rules engine.
-All override actions must be logged.
-HR clerks can edit employee records, manage locations and their rules, and manage leave categories.
-System Integration:
-Must provide a Web service interface for other internal systems to query an employee’s vacation request summary.
-Must interface with HR legacy systems to retrieve necessary employee information.
-Logging:
-The system must keep activity logs for all transactions.
-Non-Functional Requirements
-These requirements describe how the system should operate, rather than what it should do.
+- [🎯 Vision](#-vision)
+- [⚙️ Functional Requirements](#️-functional-requirements)
+  - [🌴 Leave Management](#-leave-management)
+  - [✅ Approval Workflow](#-approval-workflow)
+  - [⚖️ Rules Engine](#️-rules-engine)
+  - [🗂️ Data & History](#️-data--history)
+  - [🔔 Notifications](#-notifications)
+  - [🛠️ Administration & Overrides](#️-administration--overrides)
+  - [🔄 System Integration](#-system-integration)
+  - [📜 Logging](#-logging)
+- [✨ Non-Functional Requirements](#-non-functional-requirements)
+- [⛓️ Constraints](#️-constraints)
+- [🤔 Assumptions](#-assumptions)
 
-Usability:
-"The system must be easy to use." This is stated as an "overriding design goal" and is considered critical to the project's success. It justifies design decisions that favor user experience over technical simplicity (e.g., using a WYSIWYG editor applet).
-Security:
-The system must use the existing intranet portal’s single-sign-on (SSO) mechanisms (specifically, CAS) for all user authentication.
-Compatibility:
-The client-side interface must be compatible with any standard HTML 3.2-capable browser, ensuring broad accessibility without requiring the latest browser versions.
-Scalability:
-The architecture (J2EE) should support scaling by adding additional processing nodes (e.g., a web server farm) to handle changing demand.
-Maintainability:
-The rules-based system must be flexible and manageable by non-technical HR staff, indicating a need for a user-friendly rule management interface.
-Constraints
-These are limitations or decisions that are imposed upon the project and restrict design choices.
+---
 
-Technology Stack: The project is constrained to use a Java-based architecture (JSP, Servlets, JSF, EJB) because this matches the organization's existing skill sets, tools, and successful past experiences.
-Existing Infrastructure: The system must use existing hardware and middleware.
-Integration Mandate: The VTS must be implemented as an extension to the existing intranet portal system.
-Authentication Method: The system must use the Central Authentication Service (CAS) for single-sign-on, as it's the standard for the existing portal.
-Assumptions
-These are conditions accepted as true without proof, which guide the design and analysis.
+## 🎯 Vision
 
-Automated Efficiency: It is assumed that an automated system will be faster than the manual process and will save time and money for the HR department.
-Shared User Interface: The design assumes that a single home screen (VTSHome) can serve the needs of both regular Employees and Managers, even though this was not an explicit requirement.
-User Access: It is assumed that all users (Employees, Managers) have access to the company's intranet portal.
-ID Generation: During analysis, it is assumed that implementation-specific details like unique identifiers (primary keys) for entities can be added as needed during the design phase without being specified in the initial analysis model.
+The primary vision of the VTS is to empower employees and streamline internal HR processes.
+
+> A Vacation Tracking System (VTS) will provide individual employees with the capability to manage their own vacation time, sick leave, and personal time off, without having to be an expert in company policy or the local facility’s leave policies.
+
+#### Primary Goals
+*   **Employee Empowerment:** Give employees the capability and responsibility to manage their own leave.
+*   **HR Efficiency:** Streamline the functions of the Human Resources (HR) department by automating leave tracking and approval workflows.
+*   **Managerial Focus:** Minimize the time managers spend on non-core, administrative tasks.
+
+---
+
+## ⚙️ Functional Requirements
+
+These are the specific functions the system must perform.
+
+### 🌴 Leave Management
+- Employees must be able to **create, view, and cancel** their own leave requests.
+- Employees must be able to **withdraw** a pending request before it is actioned by a manager.
+- Employees must be able to **edit** the title or description of a pending request.
+
+### ✅ Approval Workflow
+- The system must support an optional **manager approval process** for leave requests.
+- Managers must be able to **approve or deny** leave requests submitted by their subordinates.
+- Managers must be able to **award compensatory time** (comp time) to their subordinates, within system-defined limits.
+
+### ⚖️ Rules Engine
+- The system must use a flexible, **rules-based engine** to validate all leave requests.
+- Validation rules must account for both company-wide policies and location-specific policies.
+- HR personnel (non-developers) must be able to **manage and update** these rules through a user-friendly interface.
+
+### 🗂️ Data & History
+- The system must provide users with access to their leave requests from the **previous calendar year**.
+- The system must allow users to submit leave requests up to **1.5 years in the future**.
+
+### 🔔 Notifications
+- The system must send **email notifications** to managers when a new request requires their approval.
+- The system must send **email notifications** to employees whenever the status of their request changes (e.g., approved, rejected, canceled).
+
+### 🛠️ Administration & Overrides
+- Authorized HR and System Administration users must have the ability to **override any restriction** imposed by the rules engine.
+- All override actions must be **logged for auditing purposes**.
+- HR clerks must be able to **edit employee records**, manage facility locations, and configure leave categories and rules.
+
+### 🔄 System Integration
+- The system must provide a **Web Service API** for other internal systems to query an employee’s vacation summary.
+- The system must interface with existing **HR legacy systems** to retrieve employee data.
+
+### 📜 Logging
+- The system must maintain a comprehensive **activity log** for all user transactions and system events.
+
+---
+
+## ✨ Non-Functional Requirements
+
+These requirements define *how* the system should operate.
+
+- **Usability:** The system must be **intuitive and easy to use** for all user types (Employees, Managers, HR). This is a critical success factor and an overriding design goal.
+- **Security:** All user authentication must be handled via the existing intranet portal’s single-sign-on (SSO) mechanism (`CAS`). The system **should not** implement its own authentication.
+- **Compatibility:** The client-side user interface must be compatible with any standard **`HTML 3.2`-capable browser** to ensure broad accessibility across the organization.
+- **Scalability:** The system architecture must be able to handle a growing number of users and transactions by allowing for the addition of more processing nodes (e.g., in a web server farm).
+- **Maintainability:** The rules engine must be designed for easy updates by non-technical staff, reducing reliance on developers for policy changes.
+
+---
+
+## ⛓️ Constraints
+
+These are non-negotiable limitations and decisions imposed on the project.
+
+- **Technology Stack:** The system **must** be built using the organization's existing **Java-based architecture** (`JSP`, `Servlets`, `JSF`, `EJB`).
+- **Infrastructure:** The project **must** utilize existing company hardware and middleware. No new hardware can be procured.
+- **Integration:** The system **must** be implemented as an extension of the existing company intranet portal. It cannot be a standalone application.
+- **Authentication:** The system **must** integrate with the Central Authentication Service (`CAS`) for all user authentication, adhering to the company standard.
+
+---
+
+## 🤔 Assumptions
+
+These are conditions believed to be true that guide the design and planning of the project.
+
+- **Process Efficiency:** It is assumed that an automated system will be significantly **faster and more cost-effective** than the current manual, paper-based process.
+- **User Access:** All users (Employees, Managers) are assumed to have **regular access** to a computer and the company's intranet portal.
+- **Data Availability:** It is assumed that all necessary employee data (e.g., manager-subordinate relationships, leave balances, location) is **available and accessible** from the HR legacy systems.
+- **UI Consolidation:** The design assumes that a **single, role-aware home screen** can effectively serve the needs of both regular Employees and Managers.

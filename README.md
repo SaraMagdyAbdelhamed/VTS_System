@@ -4,6 +4,7 @@
 ## 📋 Table of Contents
 
 - [🎯 Vision](#-vision)
+-  [👥 Actors of the System](#-actors-of-the-system)
 - [⚙️ Functional Requirements](#️-functional-requirements)
   - [🌴 Leave Management](#-leave-management)
   - [✅ Approval Workflow](#-approval-workflow)
@@ -32,8 +33,25 @@ The main goal of this application is to improve the internal business processes 
 *   This system has the potential to save time and money mostly in the HR depart-
 ment
 
-  ___________________________________-
-  ## ⚙️ Functional Requirements
+  ----
+  ## 👥 Actors of the System
+
+These are the users and external systems that will interact with the VTS.
+
+- **Employee:** The primary user of the system. Their main interactions involve creating, viewing, and managing their own leave requests.
+
+- **Manager:** A user with supervisory responsibilities. They approve or deny leave requests for their subordinates and can award compensatory time.
+
+- **HR Administrator:** A high-privilege user from the HR department. They are responsible for managing the business rules of the leave policy, configuring leave types, and overriding system restrictions when necessary.
+
+- **HR Clerk:** An HR user responsible for data management. They can edit employee records and manage facility location data.
+
+- **System Administrator:** A technical user responsible for the system's health and maintenance. They monitor logs and can perform system-level overrides for troubleshooting.
+
+
+
+---
+## ⚙️ Functional Requirements
 
 These are the specific functions the system must perform.
 
@@ -43,12 +61,13 @@ These are the specific functions the system must perform.
 - Employees must be able to **edit** the title or description of a pending request.
 
 ### ✅ Approval Workflow
-- The system must support an optional **manager approval process** for leave requests.
+- The system must support an **optional manager approval process** for leave requests.
 - Managers must be able to **approve or deny** leave requests submitted by their subordinates.
+- Managers must be able to directly **award personal leave time** to their subordinates, within system-defined limits.
 - Managers must be able to **award compensatory time** (comp time) to their subordinates, within system-defined limits.
 
 ### ⚖️ Rules Engine
-- The system must use a flexible, **rules-based engine** to validate all leave requests.
+- The system must implement a flexible, **rules-based engine** for validating and verifying all leave requests.
 - Validation rules must account for both company-wide policies and location-specific policies.
 - HR personnel (non-developers) must be able to **manage and update** these rules through a user-friendly interface.
 
@@ -61,13 +80,13 @@ These are the specific functions the system must perform.
 - The system must send **email notifications** to employees whenever the status of their request changes (e.g., approved, rejected, canceled).
 
 ### 🛠️ Administration & Overrides
-- Authorized HR and System Administration users must have the ability to **override any restriction** imposed by the rules engine.
-- All override actions must be **logged for auditing purposes**.
+- Authorized HR and System Administration personnel must have the ability to **override any restriction** imposed by the rules engine.
+- All override actions must be **explicitly logged for auditing purposes**.
 - HR clerks must be able to **edit employee records**, manage facility locations, and configure leave categories and rules.
 
 ### 🔄 System Integration
-- The system must provide a **Web Service API** for other internal systems to query an employee’s vacation summary.
-- The system must interface with existing **HR legacy systems** to retrieve employee data.
+- The system must provide a **Web Service API** for other internal systems to query any given employee’s vacation request summary.
+- The system must interface with existing **HR legacy systems** to retrieve all required employee information and subsequent changes.
 
 ### 📜 Logging
 - The system must maintain a comprehensive **activity log** for all user transactions and system events.

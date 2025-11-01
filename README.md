@@ -124,3 +124,9 @@ These are conditions believed to be true that guide the design and planning of t
 - **User Access:** All users (Employees, Managers) are assumed to have **regular access** to a computer and the company's intranet portal.
 - **Data Availability:** It is assumed that all necessary employee data (e.g., manager-subordinate relationships, leave balances, location) is **available and accessible** from the HR legacy systems.
 - **UI Consolidation:** The design assumes that a **single, role-aware home screen** can effectively serve the needs of both regular Employees and Managers.
+
+--------------------
+## ManagTime UseCase : 
+1- FlowChart 
+    * Employee FlowChart 
+    * Manager FlowChart

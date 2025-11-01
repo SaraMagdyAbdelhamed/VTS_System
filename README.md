@@ -29,6 +29,8 @@ The main goal of this application is to improve the internal business processes 
 *   **Employee Empowerment:** Give employees the capability and responsibility to manage their own leave.
 *   **HR Efficiency:** Streamline the functions of the Human Resources (HR) department by automating leave tracking and approval workflows.
 *   **Managerial Focus:** Minimize the time managers spend on non-core, administrative tasks.
+*   This system has the potential to save time and money mostly in the HR depart-
+ment
 
   ___________________________________-
   ## ⚙️ Functional Requirements

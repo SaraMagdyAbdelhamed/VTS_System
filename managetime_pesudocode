@@ -1,0 +1,185 @@
+ ##Login Function
+This function handles user authentication and session creation.
+
+FUNCTION login(username, password):
+    // 1. Input Validation
+    IF username is empty OR password is empty THEN
+        RETURN { success: false, error: "Username and password are required." }
+    END IF
+
+    // 2. Find the user in the database
+    user = Database.query("SELECT * FROM Users WHERE username = ?", username)
+
+    IF user is not found THEN
+        RETURN { success: false, error: "Invalid username or password." }
+    END IF
+
+    // 3. Verify the password using the secure hash
+    isPasswordCorrect = PasswordHasher.verify(password, user.passwordHash)
+
+    IF isPasswordCorrect is false THEN
+        RETURN { success: false, error: "Invalid username or password." }
+    END IF
+
+    // 4. Create a session for the authenticated user
+    SessionManager.createSession(user.id, user.role)
+
+    // 5. Return success with user information
+    RETURN { success: true, user: { id: user.id, username: user.username, role: user.role } }
+END FUNCTION
+
+
+---------------------------------------
+## Request Vacation Function (Employee)
+This function allows a logged-in employee to submit a new vacation request.
+
+
+FUNCTION submitVacationRequest(startDate, endDate, reason):
+    // 1. Authentication and Authorization Check
+    currentUser = SessionManager.getSessionData()
+    IF currentUser is null THEN
+        RETURN { success: false, error: "Unauthorized. Please log in." }
+    END IF
+    IF currentUser.role is not 'Employee' THEN
+        RETURN { success: false, error: "Forbidden. Only employees can submit requests." }
+    END IF
+
+    // 2. Input Validation
+    IF startDate is not a valid date OR endDate is not a valid date THEN
+        RETURN { success: false, error: "Invalid date format." }
+    END IF
+    IF startDate is after endDate THEN
+        RETURN { success: false, error: "Start date must be before the end date." }
+    END IF
+    IF startDate is in the past THEN
+        RETURN { success: false, error: "Vacation cannot be requested for a past date." }
+    END IF
+
+    // 3. Business Logic Validation
+    // 3a. Check for overlapping requests
+    existingRequest = Database.query(
+        "SELECT id FROM VacationRequests WHERE employeeId = ? AND status != 'Rejected' AND (startDate <= ? AND endDate >= ?)",
+        currentUser.userId, endDate, startDate
+    )
+    IF existingRequest is found THEN
+        RETURN { success: false, error: "You already have an overlapping request for these dates." }
+    END IF
+
+    //  Check if employee has enough balance (optional, but good practice)
+    // (This logic can be added if balances are tracked)
+
+    // 4. Get Manager Information for Notification
+    employeeRecord = Database.query("SELECT managerId FROM Users WHERE id = ?", currentUser.userId)
+    manager = Database.query("SELECT email FROM Users WHERE id = ?", employeeRecord.managerId)
+
+    IF manager is not found THEN
+        RETURN { success: false, error: "System error: Your manager is not configured for notifications." }
+    END IF
+
+    // 5. Insert the new request into the database
+    result = Database.execute(
+        "INSERT INTO VacationRequests (employeeId, startDate, endDate, reason, status) VALUES (?, ?, ?, ?, 'Pending')",
+        currentUser.userId, startDate, endDate, reason
+    )
+
+    IF result is failure THEN
+        RETURN { success: false, error: "Failed to save the request to the database." }
+    END IF
+
+    // 6. Send notification to the manager
+    EmailService.send(
+        to: manager.email,
+        subject: "New Vacation Request from " + currentUser.username,
+        body: "A new vacation request from " + startDate + " to " + endDate + " is awaiting your approval."
+    )
+
+    // 7. Return success
+    RETURN { success: true, message: "Your vacation request has been submitted." }
+END FUNCTION
+
+---------------------------------------------
+4. Manager Approve/Disapprove Function
+This function allows a manager to act on a pending request.
+
+FUNCTION processRequestDecision(requestId, decision, comments):
+    // 1. Authentication and Authorization Check
+    currentManager = SessionManager.getSessionData()
+    IF currentManager is null THEN
+        RETURN { success: false, error: "Unauthorized. Please log in." }
+    END IF
+    IF currentManager.role is not 'Manager' THEN
+        RETURN { success: false, error: "Forbidden. Only managers can process requests." }
+    END IF
+
+    // 2. Fetch the request to verify ownership and status
+    request = Database.query("SELECT * FROM VacationRequests WHERE id = ?", requestId)
+    IF request is not found THEN
+        RETURN { success: false, error: "Request not found." }
+    END IF
+    IF request.status is not 'Pending' THEN
+        RETURN { success: false, error: "This request has already been processed." }
+    END IF
+
+    // 3. CRUCIAL SECURITY CHECK: Verify this manager is authorized for this request
+    employee = Database.query("SELECT managerId FROM Users WHERE id = ?", request.employeeId)
+    IF employee.managerId is not equal to currentManager.userId THEN
+        RETURN { success: false, error: "Forbidden. You are not authorized to process this request." }
+    END IF
+
+    // 4. Process the decision
+    employeeEmail = Database.query("SELECT email FROM Users WHERE id = ?", request.employeeId).email
+
+    IF decision is 'Approved' THEN
+        // --- APPROVAL LOGIC ---
+        // Use a transaction to ensure both updates succeed or fail together
+        BEGIN DATABASE TRANSACTION
+            // 4a. Update request status
+            updateStatusResult = Database.execute("UPDATE VacationRequests SET status = 'Approved' WHERE id = ?", requestId)
+
+            // 4b. Deduct days from employee's balance (if balance tracking exists)
+            // updateBalanceResult = Database.execute("UPDATE Balances SET ...")
+
+        IF updateStatusResult is failure THEN
+            ROLLBACK TRANSACTION
+            RETURN { success: false, error: "Database error during approval." }
+        END IF
+
+        COMMIT TRANSACTION
+
+        // 4c. Notify employee
+        EmailService.send(
+            to: employeeEmail,
+            subject: "Your Vacation Request was Approved",
+            body: "Your request for " + request.startDate + " to " + request.endDate + " has been approved."
+        )
+        RETURN { success: true, message: "Request approved." }
+
+    ELSE IF decision is 'Rejected' THEN
+        // --- REJECTION LOGIC ---
+        // 4d. Validate that comments are provided for rejection
+        IF comments is empty THEN
+            RETURN { success: false, error: "Comments are required when rejecting a request." }
+        END IF
+
+        // 4e. Update request status and add comments
+        result = Database.execute(
+            "UPDATE VacationRequests SET status = 'Rejected', managerComments = ? WHERE id = ?",
+            comments, requestId
+        )
+        IF result is failure THEN
+            RETURN { success: false, error: "Database error during rejection." }
+        END IF
+
+        // 4f. Notify employee
+        EmailService.send(
+            to: employeeEmail,
+            subject: "Update on Your Vacation Request",
+            body: "Your request for " + request.startDate + " to " + request.endDate + " was rejected. Reason: " + comments
+        )
+        RETURN { success: true, message: "Request rejected." }
+
+    ELSE
+        // Invalid decision parameter
+        RETURN { success: false, error: "Invalid decision provided." }
+    END IF
+END FUNCTION

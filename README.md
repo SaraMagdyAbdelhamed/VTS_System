@@ -131,6 +131,6 @@ These are conditions believed to be true that guide the design and planning of t
     * Employee FlowChart 
     <p align="center">
     <picture>
-    <img src="employee_managetime_flowchart.pdf" alt="Alt text" width="600">
+    <img src="https://github.com/SaraMagdyAbdelhamed/VTS_System/blob/main/employee_managetime_flowchart.pdf" alt="Alt text" width="600">
     </picture>
     </p>

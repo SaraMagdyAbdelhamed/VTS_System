@@ -129,4 +129,4 @@ These are conditions believed to be true that guide the design and planning of t
 ## ManagTime UseCase : 
 1- FlowChart 
     * Employee FlowChart 
-    * Manager FlowChart
+    <img src="employee_managetime_flowchart.pdf" alt="Alt text" width="600">

@@ -144,14 +144,14 @@ These are conditions believed to be true that guide the design and planning of t
     * Manager FlowChart
      <p align="center">
     <picture>
-    <img src="manager_managetime_usecase.png" alt="Employee Flow Chart" width="600">
+    <img src="manager_managetime_usecase.png" alt="Manager FlowChart" width="600">
     </picture>
     </p>
     </n>
     * Manager Sequence Diagram
      <p align="center">
     <picture>
-    <img src="manager_sequence_diagram.png" alt="Employee Flow Chart" width="600">
+    <img src="manager_sequence_diagram.png" alt=" Manager Sequence Diagram" width="600">
     </picture>
     </p>
     </n>
@@ -160,7 +160,7 @@ These are conditions believed to be true that guide the design and planning of t
  * Employee Flowcahrt
   <p align="center">
     <picture>
-    <img src=" Employee_cancel_approved_request.png" alt="Employee Flow Chart" width="600">
+    <img src="Employee_cancel_approved_request.png" alt="Employee Flow Chart Cancel Approved Request" width="600">
     </picture>
     </p>
     </n>

@@ -166,10 +166,9 @@ These are conditions believed to be true that guide the design and planning of t
     </n>
 
   * Employee Sequence Diagram
-  Sequence_Cancel_approved_request.png
    <p align="center">
     <picture>
-    <img src="Sequence_Cancel_approved_request.png" alt="Employee Flow Chart Cancel Approved Request" width="600">
+    <img src="Sequence_Cancel_approved_request.png" alt="Employee Sequence Cancel Approved Request" width="600">
     </picture>
     </p>
     </n>

@@ -131,6 +131,6 @@ These are conditions believed to be true that guide the design and planning of t
     * Employee FlowChart 
     <p align="center">
     <picture>
-    <img src="employee_flowchart.png" alt="Employee Flow Chart" width="600">
+    <img src="employee_managetime_flowchart.png" alt="Employee Flow Chart" width="600">
     </picture>
     </p>

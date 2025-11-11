@@ -151,7 +151,7 @@ These are conditions believed to be true that guide the design and planning of t
     * Manager Sequence Diagram
      <p align="center">
     <picture>
-    <img src="employee_managetime_flowchart.png" alt="Employee Flow Chart" width="600">
+    <img src="manager_sequence_diagram.png" alt="Employee Flow Chart" width="600">
     </picture>
     </p>
     </n>

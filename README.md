@@ -155,3 +155,12 @@ These are conditions believed to be true that guide the design and planning of t
     </picture>
     </p>
     </n>
+
+2- Cancel Approved Request 
+ * Employee Flowcahrt
+  <p align="center">
+    <picture>
+    <img src=" Employee_cancel_approved_request.png" alt="Employee Flow Chart" width="600">
+    </picture>
+    </p>
+    </n>

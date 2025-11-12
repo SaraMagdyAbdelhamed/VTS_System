@@ -197,3 +197,11 @@ These are conditions believed to be true that guide the design and planning of t
     </picture>
     </p>
     </n>
+
+5- ERD 
+<p align="center">
+    <picture>
+    <img src="ERD_manageTIme.png" alt="Employee Flow Chart Cancel Approved Request" width="600">
+    </picture>
+    </p>
+    </n>

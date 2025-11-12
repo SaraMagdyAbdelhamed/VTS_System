@@ -189,3 +189,12 @@ These are conditions believed to be true that guide the design and planning of t
     </picture>
     </p>
     </n>
+
+4- State Machine Diagram For Request 
+state_machine_diagrma_request.png
+ <p align="center">
+    <picture>
+    <img src="state_machine_diagrma_request.png" alt="Employee Flow Chart Cancel Approved Request" width="600">
+    </picture>
+    </p>
+    </n>

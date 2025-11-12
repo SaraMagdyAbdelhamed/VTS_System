@@ -172,3 +172,20 @@ These are conditions believed to be true that guide the design and planning of t
     </picture>
     </p>
     </n>
+
+3- Edit Pending Request 
+  * Employee Flowchart 
+  
+ <p align="center">
+    <picture>
+    <img src="Edit_pending_request.png" alt="Employee Flow Chart Cancel Approved Request" width="600">
+    </picture>
+    </p>
+    </n>
+    * Employee Sequence Diagram
+    <p align="center">
+    <picture>
+    <img src="sequence_edit_pending_request.png" alt="Employee Flow Chart Cancel Approved Request" width="600">
+    </picture>
+    </p>
+    </n>

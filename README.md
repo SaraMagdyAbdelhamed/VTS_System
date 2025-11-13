@@ -205,3 +205,24 @@ These are conditions believed to be true that guide the design and planning of t
     </picture>
     </p>
     </n>
+
+6- UI 
+    * Employee Dashboard 
+    <p align="center">
+    <picture>
+    <img src="EMployee_dashboard.png" alt="Employee Flow Chart Cancel Approved Request" width="600">
+    </picture>
+    </p>
+    </n>
+     * Manager Dashboard 
+    <p align="center">
+    <picture>
+    <img src="manager_dashboard.png" alt="Employee Flow Chart Cancel Approved Request" width="600">
+    </picture>
+    </p>
+    </n>
+    <p align="center">
+    <picture>
+    <img src="manager_dashboard2.png" alt="Employee Flow Chart Cancel Approved Request" width="600">
+    </picture>
+    </p>
